@@ -10,7 +10,11 @@ class Configuration extends StatefulWidget {
 }
 
 class _ConfigurationState extends State<Configuration> {
-  final valor = TextEditingController();
+  final valorPuntajeMax = TextEditingController();
+  final valorExigencia = TextEditingController();
+  final valorNotaMin = TextEditingController();
+  final valorNotaMax = TextEditingController();
+  final valorNotaAprob = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +22,72 @@ class _ConfigurationState extends State<Configuration> {
       child: Column(
         children: [
           const Text(
-            'Configuraciones',
+            'Puntaje Máximo',
             style: TextStyle(fontSize: 25),
           ),
           TextField(
-            controller: valor,
+            controller: valorPuntajeMax,
             decoration: InputDecoration(
-                hintText: config_pro(context).puntaje_max.toString()),
+                hintText: config_pro(context).puntajeMax.toString()),
+          ),
+          const Text(
+            'Exigencia',
+            style: TextStyle(fontSize: 25),
+          ),
+          TextField(
+            controller: valorExigencia,
+            decoration: InputDecoration(
+                hintText: config_pro(context).exigencia.toString()),
+          ),
+          const Text(
+            'Nota Mínima',
+            style: TextStyle(fontSize: 25),
+          ),
+          TextField(
+            controller: valorNotaMin,
+            decoration: InputDecoration(
+                hintText: config_pro(context).notaMin.toString()),
+          ),
+          const Text(
+            'Nota Máxima',
+            style: TextStyle(fontSize: 25),
+          ),
+          TextField(
+            controller: valorNotaMax,
+            decoration: InputDecoration(
+                hintText: config_pro(context).notaMax.toString()),
+          ),
+          const Text(
+            'Nota Aprobación',
+            style: TextStyle(fontSize: 25),
+          ),
+          TextField(
+            controller: valorNotaAprob,
+            decoration: InputDecoration(
+                hintText: config_pro(context).notaAprob.toString()),
           ),
           ElevatedButton(
               onPressed: () {
-                config_pro(context).setPuntaje_max(int.parse(valor.text));
-                valor.text = '';
+                if (valorPuntajeMax.text.isNotEmpty) {
+                  config_pro(context)
+                      .setPuntajeMax(int.parse(valorPuntajeMax.text));
+                }
+                if (valorExigencia.text.isNotEmpty) {
+                  config_pro(context)
+                      .setExigencia(double.parse(valorExigencia.text));
+                }
+                if (valorNotaMin.text.isNotEmpty) {
+                  config_pro(context)
+                      .setNotaMin(double.parse(valorNotaMin.text));
+                }
+                if (valorNotaMax.text.isNotEmpty) {
+                  config_pro(context)
+                      .setNotaMax(double.parse(valorNotaMax.text));
+                }
+                if (valorNotaAprob.text.isNotEmpty) {
+                  config_pro(context)
+                      .setNotaAprob(double.parse(valorNotaAprob.text));
+                }
                 setState(() {});
               },
               child: const Text('Guardar'))

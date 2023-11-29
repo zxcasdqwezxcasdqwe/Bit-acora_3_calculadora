@@ -1,4 +1,6 @@
+import 'package:calculadora_escala/provider/configuracion_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Tables extends StatefulWidget {
   const Tables({super.key});
@@ -8,20 +10,18 @@ class Tables extends StatefulWidget {
 }
 
 class _TablesState extends State<Tables> {
-  double calcular() {
-    double napr = 4.0;
-    double nmin = 1.0;
-    double nmax = 7.0;
-    double p = 90.0;
-    double valor = (3.0 * ((p - 70.0) / 30.0)) + 4.0;
-
-    return valor;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(calcular().toString(), style: const TextStyle(fontSize: 50)),
+    return Scrollbar(
+      child: ListView.builder(
+          itemCount: context.read<ConfigurationProvider>().puntajeMax + 1,
+          itemBuilder: (context, index) {
+            return Center(
+                child: Text(
+              '$index    ${context.read<ConfigurationProvider>().calcular(index)}',
+              style: const TextStyle(fontSize: 20),
+            ));
+          }),
     );
   }
 }
